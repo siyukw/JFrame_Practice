@@ -1,30 +1,33 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.swing.*;
 
-// an apple falling from the sky
-public class Apple {
-    public static void main(String arg[]) throws IOException {
-        JFrame bg = new JFrame();
-        // sky.setLayout(new GridBagLayout());
-        bg.setVisible(true);
-        bg.setSize(1000, 800);
+public class Apple extends JPanel {
 
-        JPanel sky = new JPanel();
-        sky.setBackground(new Color(103, 150, 200));
-        sky.setLayout(new FlowLayout());
-        bg.getContentPane().add(sky);
+    public Apple() {
+        // set the layout in the constructor
+        super(new FlowLayout(FlowLayout.LEADING));
 
+        // best not to set size OR preferred size!
+        setPreferredSize( new Dimension(200,200) );
 
-        BufferedImage apple = ImageIO.read(new File("appleRed.png"));
-        JLabel appleDrop = new JLabel(new ImageIcon(apple));
-        sky.add(appleDrop);
+        JLabel lab1 = new JLabel("User Name");
+        add(lab1);
+    }
 
+    public static void main(String[] args) {
+        // construct the GUI on the EDT
+        SwingUtilities.invokeLater( new Runnable() {
+            public void run() {
+                JFrame frame = new JFrame("User Details");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+                frame.getContentPane().add(new Apple());
+                // important!
+                frame.pack();
 
+                frame.setVisible(true);
+            }
+        });
     }
 }
+
