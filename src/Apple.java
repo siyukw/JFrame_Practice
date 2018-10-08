@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class Apple extends JPanel {
+public class Apple extends JPanel throws IOExeption {
 
     public Apple() {
         // set the layout in the constructor
@@ -15,6 +15,8 @@ public class Apple extends JPanel {
     }
 
     public static void main(String[] args) {
+        try {
+        
         // construct the GUI on the EDT
         SwingUtilities.invokeLater( new Runnable() {
             public void run() {
@@ -26,7 +28,11 @@ public class Apple extends JPanel {
                 frame.pack();
 
                 frame.setVisible(true);
-            }
+                
+            } catch (IOExeption i) {
+                System.out.println("An IOExeption was caught :" + i.getMessage());
+                i.printStackTrace();
+            }}
         });
     }
 }
